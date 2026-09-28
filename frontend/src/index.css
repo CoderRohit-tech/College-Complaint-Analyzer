@@ -1,0 +1,822 @@
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #1f2937;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   LOGIN / REGISTER
+===================================================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(14, 165, 233, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #020617,
+            #172554
+        );
+}
+
+.login-box {
+    width: 100%;
+    max-width: 430px;
+    padding: 40px;
+
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+
+    animation: cardAppear 0.4s ease;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-box h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 30px;
+    color: #111827;
+}
+
+.login-subtitle {
+    text-align: center;
+    margin: 9px 0 30px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.login-box form {
+    margin-top: 10px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+
+    background: #ffffff;
+    color: #111827;
+    font-size: 15px;
+
+    transition: all 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* =====================================================
+   LOGIN BUTTONS
+===================================================== */
+
+.login-button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+.register-button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+
+    border: 1px solid #2563eb;
+    border-radius: 9px;
+
+    background: white;
+    color: #2563eb;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.register-button:hover {
+    background: #eff6ff;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   ADMIN DASHBOARD
+===================================================== */
+
+.dashboard {
+    min-height: 100vh;
+    padding: 60px 30px;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #f8fafc,
+            #eef2ff
+        );
+}
+
+.dashboard h1 {
+    margin: 0;
+    font-size: 38px;
+    color: #111827;
+}
+
+.dashboard h2 {
+    margin: 12px 0 35px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #64748b;
+}
+
+
+/* Dashboard Cards */
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    max-width: 1100px;
+    margin: 0 auto 35px;
+}
+
+.dashboard-card {
+    padding: 25px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.dashboard-card h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    color: #1f2937;
+}
+
+.dashboard-card p {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+/* Different Card Colors */
+
+.dashboard-card:nth-child(1) {
+    border-top: 5px solid #2563eb;
+}
+
+.dashboard-card:nth-child(1) p {
+    color: #2563eb;
+}
+
+.dashboard-card:nth-child(2) {
+    border-top: 5px solid #f59e0b;
+}
+
+.dashboard-card:nth-child(2) p {
+    color: #f59e0b;
+}
+
+.dashboard-card:nth-child(3) {
+    border-top: 5px solid #3b82f6;
+}
+
+.dashboard-card:nth-child(3) p {
+    color: #3b82f6;
+}
+
+.dashboard-card:nth-child(4) {
+    border-top: 5px solid #22c55e;
+}
+
+.dashboard-card:nth-child(4) p {
+    color: #22c55e;
+}
+
+
+/* Dashboard Buttons */
+
+.dashboard-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.dashboard-buttons button {
+    min-width: 180px;
+    padding: 14px 24px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.dashboard-buttons button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   STUDENT DASHBOARD
+===================================================== */
+
+.student-dashboard {
+    min-height: 100vh;
+    padding: 40px;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #f8fafc
+    );
+}
+
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+.student-header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #0f172a;
+}
+
+.student-header p {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* Logout */
+
+.logout-button {
+    padding: 11px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #ef4444;
+    color: white;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.logout-button:hover {
+    background: #dc2626;
+}
+
+
+/* Student Cards */
+
+.student-dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+
+    max-width: 1000px;
+    margin: auto;
+}
+
+.student-card {
+    padding: 30px;
+
+    background: white;
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+
+    transition: transform 0.2s;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+}
+
+.student-card h2 {
+    margin: 0 0 15px;
+    font-size: 45px;
+}
+
+.student-card h3 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: #1e293b;
+}
+
+.student-card p {
+    margin-bottom: 25px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.student-card button {
+    padding: 12px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    color: white;
+
+    font-weight: 600;
+}
+
+
+/* Student Card Colors */
+
+.complaint-card-blue {
+    border-top: 5px solid #2563eb;
+}
+
+.complaint-card-blue button {
+    background: #2563eb;
+}
+
+.complaint-card-green {
+    border-top: 5px solid #16a34a;
+}
+
+.complaint-card-green button {
+    background: #16a34a;
+}
+
+.student-card button:hover {
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   SUBMIT COMPLAINT
+===================================================== */
+
+.complaint-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #f8fafc,
+        #eef2ff
+    );
+}
+
+.complaint-box {
+    width: 100%;
+    max-width: 650px;
+
+    padding: 40px;
+
+    background: white;
+    border-radius: 16px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.complaint-box h1 {
+    margin: 0 0 30px;
+
+    text-align: center;
+
+    color: #111827;
+    font-size: 28px;
+}
+
+.complaint-box .form-group {
+    margin-bottom: 22px;
+}
+
+.form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.complaint-box button {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.complaint-box button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.2);
+}
+
+
+/* =====================================================
+   MY COMPLAINTS
+===================================================== */
+
+.my-complaints-page,
+.admin-complaints-page {
+    min-height: 100vh;
+
+    width: 90%;
+    max-width: 950px;
+
+    margin: 0 auto;
+    padding: 55px 0;
+}
+
+.my-complaints-page h1,
+.admin-complaints-page h1 {
+    margin: 0 0 35px;
+
+    text-align: center;
+
+    color: #111827;
+    font-size: 32px;
+}
+
+.complaints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.complaint-card {
+    padding: 25px;
+
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+
+    transition: all 0.2s ease;
+}
+
+.complaint-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.1);
+}
+
+.complaint-card h2 {
+    margin: 0 0 18px;
+
+    color: #111827;
+    font-size: 21px;
+}
+
+.complaint-card p {
+    margin: 10px 0;
+
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+.complaint-card strong {
+    color: #1f2937;
+}
+
+
+/* =====================================================
+   NO COMPLAINTS
+===================================================== */
+
+.no-complaints {
+    text-align: center;
+
+    padding: 40px;
+
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+
+    color: #64748b;
+
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =====================================================
+   ADMIN STATUS BUTTONS
+===================================================== */
+
+.status-buttons {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 20px;
+
+    flex-wrap: wrap;
+}
+
+.status-buttons button {
+    padding: 10px 17px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.status-buttons button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   STATUS BADGES
+===================================================== */
+
+.status-pending,
+.status-progress,
+.status-resolved {
+    display: inline-block;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-progress {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-resolved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .student-dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .login-box {
+        padding: 28px 22px;
+        border-radius: 14px;
+    }
+
+    .login-box h2 {
+        font-size: 26px;
+    }
+
+    .dashboard {
+        padding: 50px 20px;
+    }
+
+    .dashboard h1 {
+        font-size: 29px;
+    }
+
+    .dashboard h2 {
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
+
+    .dashboard-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dashboard-buttons button {
+        width: 100%;
+    }
+
+    .student-dashboard {
+        padding: 25px;
+    }
+
+    .student-header {
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .student-header h1 {
+        font-size: 27px;
+    }
+
+    .complaint-box {
+        padding: 28px 22px;
+    }
+
+    .complaint-box h1 {
+        font-size: 25px;
+    }
+
+    .my-complaints-page,
+    .admin-complaints-page {
+        width: 92%;
+        padding: 35px 0;
+    }
+
+    .my-complaints-page h1,
+    .admin-complaints-page h1 {
+        font-size: 27px;
+    }
+
+    .complaint-card {
+        padding: 20px;
+    }
+
+    .status-buttons {
+        flex-direction: column;
+    }
+
+    .status-buttons button {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .login-box {
+        padding: 25px 18px;
+    }
+
+    .complaint-box {
+        padding: 22px 18px;
+    }
+
+    .student-header {
+        flex-direction: column;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+}
