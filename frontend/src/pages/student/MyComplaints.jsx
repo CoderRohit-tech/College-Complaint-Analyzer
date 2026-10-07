@@ -25,7 +25,7 @@ export default function MyComplaints() {
 
 
             const response = await fetch(
-                "http://localhost:5000/api/my-complaints",
+                `${import.meta.env.VITE_API_URL}/my-complaints`,
                 {
                     method: "GET",
 

@@ -44,7 +44,7 @@ export default function SubmitComplaint() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/complaints", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/complaints`, {
         method: "POST",
 
         headers: {

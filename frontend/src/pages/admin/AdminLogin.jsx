@@ -25,7 +25,7 @@ export default function AdminLogin() {
             setLoading(true);
 
             const response = await fetch(
-                "http://localhost:5000/api/admin/login",
+                `${import.meta.env.VITE_API_URL}/admin/login`,
                 {
                     method: "POST",
 

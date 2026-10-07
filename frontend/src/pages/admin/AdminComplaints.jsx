@@ -21,7 +21,7 @@ export default function AdminComplaints() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/admin/complaints",
+        `${import.meta.env.VITE_API_URL}/admin/complaints`,
         {
           method: "GET",
           headers: {
@@ -65,7 +65,7 @@ export default function AdminComplaints() {
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/complaints/${id}/status`,
+        `${import.meta.env.VITE_API_URL}/admin/complaints/${id}/status`,
         {
           method: "PUT",
 
