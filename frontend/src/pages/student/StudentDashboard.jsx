@@ -1,36 +1,64 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function () {
-  const navigate = useNavigate();
+export default function StudentDashboard() {
 
-  const student = JSON.parse(localStorage.getItem("student"));
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("student");
+    const student = JSON.parse(
+        localStorage.getItem("student")
+    );
 
-    navigate("/login");
-  };
 
-  return (
-    <div className="dashboard">
-      <h1>Student Dashboard</h1>
+    const handleLogout = () => {
 
-       <h2>Welcome, {student?.name}</h2>
+        // Remove student authentication data
+        localStorage.removeItem("studentToken");
+        localStorage.removeItem("student");
 
-      <div className="dashboard-buttons">
-      <button onClick={() => navigate("/student/submit-complaint")}>
-        Submit Complaint
-      </button>
+        navigate("/login", {
+            replace: true
+        });
+    };
 
-      <button onClick={() => navigate("/student/my-complaints")}>
-        My Complaints
-      </button>
 
-      <button onClick={handleLogout}>Logout</button>
+    return (
+        <div className="dashboard">
 
-      </div>
-    </div>
-  );
+            <h1>Student Dashboard</h1>
+
+            <h2>
+                Welcome, {student?.name || "Student"}
+            </h2>
+
+
+            <div className="dashboard-buttons">
+
+                <button
+                    onClick={() =>
+                        navigate("/student/submit-complaint")
+                    }
+                >
+                    Submit Complaint
+                </button>
+
+
+                <button
+                    onClick={() =>
+                        navigate("/student/my-complaints")
+                    }
+                >
+                    My Complaints
+                </button>
+
+
+                <button
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+    );
 }

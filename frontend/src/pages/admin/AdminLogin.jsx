@@ -5,40 +5,59 @@ export default function AdminLogin() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
+
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
+        // Basic validation
+        if (!email.trim() || !password.trim()) {
+            alert("Email and password are required");
+            return;
+        }
+
         try {
+
+            setLoading(true);
 
             const response = await fetch(
                 "http://localhost:5000/api/admin/login",
                 {
                     method: "POST",
+
                     headers: {
                         "Content-Type": "application/json"
                     },
+
                     body: JSON.stringify({
-                        email: email,
+                        email: email.trim(),
                         password: password
                     })
                 }
             );
 
+
             const data = await response.json();
 
-            console.log(data);
+            console.log("Admin login:", data);
+
 
             if (data.success) {
 
+                // Save admin JWT
                 localStorage.setItem(
                     "adminToken",
                     data.token
                 );
 
-                navigate("/admin/dashboard");
+                // Go to admin dashboard
+                navigate("/admin/dashboard", {
+                    replace: true
+                });
 
             } else {
 
@@ -48,11 +67,17 @@ export default function AdminLogin() {
 
         } catch (error) {
 
-            console.error("Login error:", error);
-            alert("Something went wrong!");
+            console.error("Admin login error:", error);
+
+            alert("Unable to connect to server");
+
+        } finally {
+
+            setLoading(false);
 
         }
     };
+
 
     return (
         <div className="login-page">
@@ -61,36 +86,61 @@ export default function AdminLogin() {
 
                 <h1>Admin Login</h1>
 
+
                 <form onSubmit={handleSubmit}>
 
+                    {/* Email */}
+
                     <div className="form-group">
 
-                        <label>Email</label>
+                        <label htmlFor="admin-email">
+                            Email
+                        </label>
 
                         <input
+                            id="admin-email"
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
                             placeholder="Enter admin email"
+                            required
                         />
 
                     </div>
+
+
+                    {/* Password */}
 
                     <div className="form-group">
 
-                        <label>Password</label>
+                        <label htmlFor="admin-password">
+                            Password
+                        </label>
 
                         <input
+                            id="admin-password"
                             type="password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
                             placeholder="Enter password"
+                            required
                         />
 
                     </div>
 
-                    <button type="submit" className="login-button">
-                        Login
+
+                    {/* Login button */}
+
+                    <button
+                        type="submit"
+                        className="login-button"
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login"}
                     </button>
 
                 </form>

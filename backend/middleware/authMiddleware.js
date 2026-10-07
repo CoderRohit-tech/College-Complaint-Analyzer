@@ -1,34 +1,56 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const authMiddleware = (req, res, next)=>{
-    try{
+const authMiddleware = (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
 
-        const token = req.headers.authorization;
-
-        if(!token){
-           return res.status(401).json({
-            success:false,
-            message: 'Access denied. Token required'
-           });
+        // Authorization header check
+        if (!authHeader) {
+            return res.status(401).json({
+                success: false,
+                message: "Access denied. Token required"
+            });
         }
 
-        const actualToken = token.split(' ')[1];
+        // Bearer format check
+        if (!authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid token format"
+            });
+        }
 
-        const decoded = jwt.verify(actualToken, process.env.JWT_SECRET);
-        
+        // Extract token
+        const actualToken = authHeader.split(" ")[1];
 
+        // Verify JWT
+        const decoded = jwt.verify(
+            actualToken,
+            process.env.JWT_SECRET
+        );
+
+        // Student role check
+        if (decoded.role !== "student") {
+            return res.status(403).json({
+                success: false,
+                message: "Student access required"
+            });
+        }
+
+        // Store decoded student information
         req.student = decoded;
 
+        // Continue to next middleware/controller
         next();
 
+    } catch (error) {
+        console.error("Auth middleware error:", error.message);
 
-    }catch(error){
-        console.error(error);
         return res.status(401).json({
-            success:false,
-            message:"Invalid or expired token"
+            success: false,
+            message: "Invalid or expired token"
         });
     }
-}
+};
 
 module.exports = authMiddleware;

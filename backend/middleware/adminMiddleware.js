@@ -1,38 +1,54 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const adminMiddleware = (req, res, next)=>{
-    try{
+const adminMiddleware = (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
 
-        const token = req.headers.authorization;
-
-        if(!token){
-            return res.status(400).json({
-                success:false,
-                message:"Token is required"
+        // Token check
+        if (!authHeader) {
+            return res.status(401).json({
+                success: false,
+                message: "Authorization token is required"
             });
         }
 
-        const actualToken = token.split(' ')[1];
+        // Bearer token check
+        if (!authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid token format"
+            });
+        }
 
-        const decoded = jwt.verify(actualToken, process.env.JWT_SECRET);
+        const actualToken = authHeader.split(" ")[1];
 
-         if (decoded.role !== 'admin') {
+        // Verify token
+        const decoded = jwt.verify(
+            actualToken,
+            process.env.JWT_SECRET
+        );
+
+        // Role check
+        if (decoded.role !== "admin") {
             return res.status(403).json({
                 success: false,
-                message: 'Admin access required'
+                message: "Admin access required"
             });
         }
 
+        // Admin information
         req.admin = decoded;
+
         next();
 
-    }catch(error){
-        console.log(error);
-        res.status(401).json({
-            success:false,
-            message:"Invalid or expired token"
+    } catch (error) {
+        console.error("Admin middleware error:", error.message);
+
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired token"
         });
     }
-}
+};
 
 module.exports = adminMiddleware;

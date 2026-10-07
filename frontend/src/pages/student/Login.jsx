@@ -1,102 +1,172 @@
-import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const navigate = useNavigate();
 
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
 
-      const data = await response.json();
-      console.log(data);
+    const handleSubmit = async (e) => {
 
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("student", JSON.stringify(data.student));
+        e.preventDefault();
 
-        navigate("/student/dashboard");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Something went wrong");
-    }
-  };
+        if (!email.trim() || !password.trim()) {
+            alert("Email and password are required");
+            return;
+        }
 
- 
-return (
-    <div className="login-page">
+        try {
 
-        <div className="login-box">
+            setLoading(true);
 
-            <h2>Student Login</h2>
-            <p className="login-subtitle">
-                Login to manage your college complaints
-            </p>
+            const response = await fetch(
+                "http://localhost:5000/api/login",
+                {
+                    method: "POST",
 
-            <form onSubmit={handleSubmit}>
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                <div className="form-group">
-                    <label>Email</label>
+                    body: JSON.stringify({
+                        email: email.trim(),
+                        password: password
+                    })
+                }
+            );
 
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        required
-                    />
-                </div>
 
-                <div className="form-group">
-                    <label>Password</label>
+            const data = await response.json();
 
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your password"
-                        required
-                    />
-                </div>
+            console.log("Student login:", data);
 
-                <button
-                    className="login-button"
-                    type="submit"
-                >
-                    Login
-                </button>
 
-                <button
-                    className="register-button"
-                    type="button"
-                    onClick={() => navigate("/register")}
-                >
-                    Create Account
-                </button>
+            if (data.success) {
 
-            </form>
+                // Save student JWT
+                localStorage.setItem(
+                    "studentToken",
+                    data.token
+                );
+
+                // Save student information
+                localStorage.setItem(
+                    "student",
+                    JSON.stringify(data.student)
+                );
+
+                // Go to student dashboard
+                navigate("/student/dashboard", {
+                    replace: true
+                });
+
+            } else {
+
+                alert(data.message);
+
+            }
+
+        } catch (error) {
+
+            console.error("Login error:", error);
+
+            alert("Unable to connect to server");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
+
+    return (
+        <div className="login-page">
+
+            <div className="login-box">
+
+                <h2>Student Login</h2>
+
+                <p className="login-subtitle">
+                    Login to manage your college complaints
+                </p>
+
+
+                <form onSubmit={handleSubmit}>
+
+                    {/* Email */}
+
+                    <div className="form-group">
+
+                        <label htmlFor="student-email">
+                            Email
+                        </label>
+
+                        <input
+                            id="student-email"
+                            type="email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                            placeholder="Enter your email"
+                            required
+                        />
+
+                    </div>
+
+
+                    {/* Password */}
+
+                    <div className="form-group">
+
+                        <label htmlFor="student-password">
+                            Password
+                        </label>
+
+                        <input
+                            id="student-password"
+                            type="password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            placeholder="Enter your password"
+                            required
+                        />
+
+                    </div>
+
+
+                    {/* Login */}
+
+                    <button
+                        className="login-button"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+
+
+                    {/* Register */}
+
+                    <button
+                        className="register-button"
+                        type="button"
+                        onClick={() => navigate("/register")}
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
-
-    </div>
-);
-
+    );
 }

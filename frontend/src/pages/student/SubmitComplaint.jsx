@@ -1,89 +1,146 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SubmitComplaint() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            const token = localStorage.getItem("token");
+    // Basic validation
 
-            const response = await fetch(
-                "http://localhost:5000/api/complaints",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        title: title,
-                        description: description
-                    })
-                }
-            );
+    if (!title.trim() || !description.trim()) {
+      alert("Title and description are required");
+      return;
+    }
 
-            const data = await response.json();
+    if (title.trim().length < 5) {
+      alert("Title must contain at least 5 characters");
+      return;
+    }
 
-            console.log(data);
+    if (description.trim().length < 10) {
+      alert("Description must contain at least 10 characters");
+      return;
+    }
 
-            if (data.success) {
-                alert("Complaint submitted successfully");
+    try {
+      setLoading(true);
 
-                setTitle("");
-                setDescription("");
-            } else {
-                alert(data.message);
-            }
+      // Get student JWT
+      const token = localStorage.getItem("studentToken");
 
-        } catch (error) {
-            console.error("Submit complaint error:", error);
-            alert("Something went wrong");
-        }
-    };
+      if (!token) {
+        alert("Please login first");
 
-    return (
-        <div className="complaint-page">
+        navigate("/login", {
+          replace: true,
+        });
 
-            <div className="complaint-box">
+        return;
+      }
 
-                <h1>Submit Complaint</h1>
+      const response = await fetch("http://localhost:5000/api/complaints", {
+        method: "POST",
 
-                <form onSubmit={handleSubmit}>
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
 
-                    <div className="form-group">
-                        <label>Complaint Title</label>
+        body: JSON.stringify({
+          title: title.trim(),
+          description: description.trim(),
+        }),
+      });
 
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Enter complaint title"
-                        />
-                    </div>
+      const data = await response.json();
 
-                    <div className="form-group">
-                        <label>Description</label>
+      console.log("Complaint response:", data);
 
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Describe your problem"
-                            rows="5"
-                        />
-                    </div>
+      // Token expired / invalid
 
-                    <button type="submit">
-                        Submit Complaint
-                    </button>
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem("studentToken");
+        localStorage.removeItem("student");
 
-                </form>
+        alert("Session expired. Please login again.");
 
-            </div>
+        navigate("/login", {
+          replace: true,
+        });
 
-        </div>
-    );
+        return;
+      }
+
+      if (data.success) {
+        alert("Complaint submitted successfully!");
+
+        setTitle("");
+        setDescription("");
+
+        navigate("/student/dashboard");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Submit complaint error:", error);
+
+      alert("Unable to submit complaint");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="complaint-page">
+      <div className="complaint-box">
+        <h1>Submit Complaint</h1>
+
+        <form onSubmit={handleSubmit}>
+          {/* Title */}
+
+          <div className="form-group">
+            <label htmlFor="complaint-title">Complaint Title</label>
+
+            <input
+              id="complaint-title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter complaint title"
+              maxLength="150"
+              required
+            />
+          </div>
+
+          {/* Description */}
+
+          <div className="form-group">
+            <label htmlFor="complaint-description">Description</label>
+
+            <textarea
+              id="complaint-description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe your problem"
+              rows="6"
+              maxLength="2000"
+              required
+            />
+          </div>
+
+          {/* Submit */}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Analyzing & Submitting..." : "Submit Complaint"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

@@ -1,42 +1,102 @@
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
-const db = require('./db');
-require('dotenv').config();
-const app = express();
-const PORT = process.env.PORT;
+require("dotenv").config();
+
+const db = require("./db");
+
 const studentRoutes = require("./routes/studentRoutes");
-const complaintRoutes = require('./routes/complaintRoutes');
-const adminRoutes = require('./routes/adminRoutes');
+const complaintRoutes = require("./routes/complaintRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
+const app = express();
 
+const PORT = process.env.PORT || 5000;
+
+// MIDDLEWARES
+
+// CORS
 app.use(cors());
-app.use(express.json());
-app.use('/api', studentRoutes);
-app.use('/api', complaintRoutes);
-app.use('/api', adminRoutes);
 
-app.get("/", (req, res) =>{
-     res.send('College Complaint AI Backend Running');
+// JSON body parser
+app.use(express.json());
+
+
+ //  ROUTES
+
+app.use("/api", studentRoutes);
+app.use("/api", complaintRoutes);
+app.use("/api", adminRoutes);
+
+
+//   HOME / HEALTH CHECK
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "College Complaint AI Backend Running"
+    });
 });
 
-app.get('/api/test-db', async(req, res)=>{
-    try{
-        const [rows] = await db.query("SELECT 1 AS result");
-        res.json({
+
+//   DATABASE TEST
+
+app.get("/api/test-db", async (req, res) => {
+    try {
+
+        const [rows] = await db.query(
+            "SELECT 1 AS result"
+        );
+
+        return res.status(200).json({
             success: true,
-            message: 'MySQL connected successfully',
+            message: "MySQL connected successfully",
             data: rows
         });
-    }catch(error){
-       console.error(error);
-       res.status(500).json({
-         success: false,
-         message: 'MySQL connected failed',
-       });
+
+    } catch (error) {
+
+        console.error(
+            "Database connection error:",
+            error.message
+        );
+
+        return res.status(500).json({
+            success: false,
+            message: "Database connection failed"
+        });
     }
 });
 
 
-app.listen(PORT, ()=>{
-    console.log(`Server is listening on port ${PORT}`);
+//   404 ROUTE
+app.use((req, res) => {
+    return res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
+
+
+//   GLOBAL ERROR HANDLER
+
+app.use((err, req, res, next) => {
+
+    console.error(
+        "Global error:",
+        err.stack
+    );
+
+    return res.status(500).json({
+        success: false,
+        message: "Internal server error"
+    });
+});
+
+
+//   START SERVER
+
+app.listen(PORT, () => {
+    console.log(
+        `Server is running on port ${PORT}`
+    );
 });

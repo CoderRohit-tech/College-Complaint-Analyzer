@@ -1,58 +1,140 @@
 function analyzeComplaint(text) {
 
-    const lowerText = text.toLowerCase();
+    const lowerText = text.toLowerCase().trim();
 
     let category = "Other";
     let sentiment = "Normal";
+    let priority = "Low";
 
 
-    // CATEGORY DETECTION
+   
+    //  CATEGORY DETECTION
+    
+    const categoryKeywords = {
 
-    if (
-        lowerText.includes("wifi") ||
-        lowerText.includes("internet") ||
-        lowerText.includes("network") ||
-        lowerText.includes("computer")
-    ) {
-        category = "IT/Wi-Fi";
+        "IT/Wi-Fi": [
+            "wifi",
+            "wi-fi",
+            "internet",
+            "network",
+            "computer",
+            "computer lab",
+            "server",
+            "software",
+            "website",
+            "portal",
+            "login",
+            "printer",
+            "projector"
+        ],
 
-    } else if (
-        lowerText.includes("library") ||
-        lowerText.includes("book") ||
-        lowerText.includes("librarian") ||
-        lowerText.includes("reading")
-    ) {
-        category = "Library";
+        "Library": [
+            "library",
+            "book",
+            "books",
+            "librarian",
+            "reading",
+            "study room",
+            "journal",
+            "magazine"
+        ],
 
-    } else if (
-        lowerText.includes("fan") ||
-        lowerText.includes("light") ||
-        lowerText.includes("classroom") ||
-        lowerText.includes("bench") ||
-        lowerText.includes("desk") ||
-        lowerText.includes("building")
-    ) {
-        category = "Infrastructure";
+        "Infrastructure": [
+            "fan",
+            "light",
+            "electricity",
+            "classroom",
+            "bench",
+            "desk",
+            "building",
+            "chair",
+            "roof",
+            "ceiling",
+            "floor",
+            "door",
+            "window",
+            "ac",
+            "air conditioner"
+        ],
 
-    } else if (
-        lowerText.includes("hostel") ||
-        lowerText.includes("room") ||
-        lowerText.includes("bathroom") ||
-        lowerText.includes("water")
-    ) {
-        category = "Hostel";
+        "Hostel": [
+            "hostel",
+            "hostel room",
+            "room",
+            "bathroom",
+            "washroom",
+            "water",
+            "mess",
+            "warden",
+            "bed"
+        ],
 
-    } else if (
-        lowerText.includes("canteen") ||
-        lowerText.includes("food") ||
-        lowerText.includes("meal") ||
-        lowerText.includes("hygiene")
-    ) {
-        category = "Canteen";
+        "Canteen": [
+            "canteen",
+            "food",
+            "meal",
+            "lunch",
+            "breakfast",
+            "dinner",
+            "hygiene",
+            "restaurant",
+            "food quality"
+        ],
+
+        "Transport": [
+            "bus",
+            "transport",
+            "driver",
+            "college bus",
+            "bus stop",
+            "vehicle"
+        ],
+
+        "Academic": [
+            "teacher",
+            "professor",
+            "faculty",
+            "lecture",
+            "class",
+            "exam",
+            "marks",
+            "attendance",
+            "assignment",
+            "syllabus",
+            "timetable"
+        ]
+    };
+
+
+    /* =====================================================
+       CATEGORY SCORING
+    ===================================================== */
+
+    let bestCategory = "Other";
+    let bestScore = 0;
+
+    for (const [categoryName, keywords] of Object.entries(categoryKeywords)) {
+
+        let score = 0;
+
+        for (const keyword of keywords) {
+
+            if (lowerText.includes(keyword)) {
+                score++;
+            }
+        }
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestCategory = categoryName;
+        }
     }
 
+    category = bestCategory;
 
-    // NEGATIVE SENTIMENT
+
+    
+    //   SENTIMENT DETECTION
 
     const negativeWords = [
         "poor",
@@ -62,27 +144,164 @@ function analyzeComplaint(text) {
         "terrible",
         "dirty",
         "broken",
+        "damaged",
         "slow",
         "not working",
+        "does not work",
+        "doesn't work",
         "problem",
-        "issue"
+        "issue",
+        "unavailable",
+        "failure",
+        "failed",
+        "unsafe",
+        "unacceptable",
+        "disappointed",
+        "complaint"
     ];
+
+
+    const positiveWords = [
+        "good",
+        "great",
+        "excellent",
+        "working",
+        "clean",
+        "satisfied",
+        "thank",
+        "thanks"
+    ];
+
+
+    let negativeScore = 0;
+    let positiveScore = 0;
 
 
     for (const word of negativeWords) {
 
         if (lowerText.includes(word)) {
+            negativeScore++;
+        }
+    }
 
-            sentiment = "Negative";
 
+    for (const word of positiveWords) {
+
+        if (lowerText.includes(word)) {
+            positiveScore++;
+        }
+    }
+
+
+    if (negativeScore > positiveScore) {
+        sentiment = "Negative";
+    } else {
+        sentiment = "Normal";
+    }
+
+
+    //   PRIORITY DETECTION
+
+    const criticalWords = [
+        "fire",
+        "accident",
+        "emergency",
+        "life threatening",
+        "life-threatening",
+        "electric shock",
+        "short circuit",
+        "dangerous",
+        "unsafe",
+        "injury",
+        "injured"
+    ];
+
+
+    const highPriorityWords = [
+        "very poor",
+        "completely broken",
+        "not working",
+        "urgent",
+        "immediately",
+        "serious",
+        "multiple days",
+        "many days",
+        "blocked",
+        "unavailable",
+        "security issue"
+    ];
+
+
+    const mediumPriorityWords = [
+        "problem",
+        "issue",
+        "slow",
+        "delay",
+        "broken",
+        "poor"
+    ];
+
+
+    // Critical
+    for (const word of criticalWords) {
+
+        if (lowerText.includes(word)) {
+            priority = "Critical";
             break;
         }
     }
 
 
+    // High
+    if (priority !== "Critical") {
+
+        for (const word of highPriorityWords) {
+
+            if (lowerText.includes(word)) {
+                priority = "High";
+                break;
+            }
+        }
+    }
+
+
+    // Medium
+    if (
+        priority !== "Critical" &&
+        priority !== "High"
+    ) {
+
+        for (const word of mediumPriorityWords) {
+
+            if (lowerText.includes(word)) {
+                priority = "Medium";
+                break;
+            }
+        }
+    }
+
+
+    //   SUMMARY GENERATION
+
+    let summary = text.trim();
+
+    // Remove extra spaces
+    summary = summary.replace(/\s+/g, " ");
+
+
+    // Keep summary short
+    if (summary.length > 200) {
+        summary = summary.substring(0, 197) + "...";
+    }
+
+
+    //   RETURN AI RESULT
+
     return {
-        category: category,
-        sentiment: sentiment
+        category,
+        sentiment,
+        priority,
+        summary
     };
 }
 
