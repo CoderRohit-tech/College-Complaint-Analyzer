@@ -12,116 +12,88 @@ import AdminComplaints from "./pages/admin/AdminComplaints";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
-
+import Welcome from "./pages/welcome";
 
 function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* ================= WELCOME ================= */}
+        <Route path="/" element={<Welcome />} />
 
-    return (
+        {/* ================= STUDENT ================= */}
 
-        <BrowserRouter>
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
-            <Routes>
+        <Route path="/register" element={<Register />} />
 
-                {/* ================= STUDENT ================= */}
+        <Route path="/login" element={<Login />} />
 
-                <Route
-                    path="/"
-                    element={<Navigate to="/login" replace />}
-                />
+        {/* Student Dashboard */}
 
-                <Route
-                    path="/register"
-                    element={<Register />}
-                />
+        <Route
+          path="/student/dashboard"
+          element={
+            <ProtectedRoute>
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
+        {/* Submit Complaint */}
 
+        <Route
+          path="/student/submit-complaint"
+          element={
+            <ProtectedRoute>
+              <SubmitComplaint />
+            </ProtectedRoute>
+          }
+        />
 
-                {/* Student Dashboard */}
+        {/* My Complaints */}
 
-                <Route
-                    path="/student/dashboard"
-                    element={
-                        <ProtectedRoute>
-                            <StudentDashboard />
-                        </ProtectedRoute>
-                    }
-                />
+        <Route
+          path="/student/my-complaints"
+          element={
+            <ProtectedRoute>
+              <MyComplaints />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* ================= ADMIN ================= */}
 
-                {/* Submit Complaint */}
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-                <Route
-                    path="/student/submit-complaint"
-                    element={
-                        <ProtectedRoute>
-                            <SubmitComplaint />
-                        </ProtectedRoute>
-                    }
-                />
+        {/* Admin Dashboard */}
 
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
 
-                {/* My Complaints */}
+        {/* Admin Complaints */}
 
-                <Route
-                    path="/student/my-complaints"
-                    element={
-                        <ProtectedRoute>
-                            <MyComplaints />
-                        </ProtectedRoute>
-                    }
-                />
+        <Route
+          path="/admin/complaints"
+          element={
+            <AdminProtectedRoute>
+              <AdminComplaints />
+            </AdminProtectedRoute>
+          }
+        />
 
+        {/* ================= 404 ================= */}
 
-                {/* ================= ADMIN ================= */}
-
-                <Route
-                    path="/admin/login"
-                    element={<AdminLogin />}
-                />
-
-
-                {/* Admin Dashboard */}
-
-                <Route
-                    path="/admin/dashboard"
-                    element={
-                        <AdminProtectedRoute>
-                            <AdminDashboard />
-                        </AdminProtectedRoute>
-                    }
-                />
-
-
-                {/* Admin Complaints */}
-
-                <Route
-                    path="/admin/complaints"
-                    element={
-                        <AdminProtectedRoute>
-                            <AdminComplaints />
-                        </AdminProtectedRoute>
-                    }
-                />
-
-
-                {/* ================= 404 ================= */}
-
-                <Route
-                    path="*"
-                    element={
-                        <Navigate to="/login" replace />
-                    }
-                />
-
-            </Routes>
-
-        </BrowserRouter>
-    );
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
 
 export default App;

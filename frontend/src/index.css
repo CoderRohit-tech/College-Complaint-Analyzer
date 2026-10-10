@@ -1,857 +1,1274 @@
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+/* =========================================================
+   COLLEGE COMPLAINT ANALYZER
+   PROFESSIONAL GLOBAL CSS
+   ========================================================= */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #eff6ff;
+  --navy: #0f172a;
+  --slate: #475569;
+  --muted: #64748b;
+  --text: #1e293b;
+  --border: #e2e8f0;
+  --background: #f5f7fb;
+  --white: #ffffff;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #0284c7;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 4px 12px rgba(15, 23, 42, .06);
+  --shadow-md: 0 10px 30px rgba(15, 23, 42, .09);
+  --shadow-lg: 0 20px 50px rgba(15, 23, 42, .14);
+  --transition: .22s ease;
+}
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #0f172a;
-    color: #1f2937;
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 button {
-    font-family: inherit;
-    cursor: pointer;
+  cursor: pointer;
 }
 
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
 
-/* =====================================================
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   COMMON
+   ========================================================= */
+
+.page-title {
+  margin: 0;
+  color: var(--navy);
+  font-size: 32px;
+  font-weight: 750;
+  letter-spacing: -.6px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error-message {
+  margin: 12px 0;
+  padding: 11px 14px;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.success-message {
+  margin: 12px 0;
+  padding: 11px 14px;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  background: #f0fdf4;
+  color: #15803d;
+  font-size: 14px;
+}
+
+/* =========================================================
    LOGIN / REGISTER
-===================================================== */
+   ========================================================= */
 
 .login-page {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
-
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(37, 99, 235, 0.35),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(14, 165, 233, 0.25),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #020617,
-            #172554
-        );
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(37,99,235,.22), transparent 32%),
+    radial-gradient(circle at 90% 90%, rgba(14,165,233,.16), transparent 30%),
+    linear-gradient(135deg, #eff6ff 0%, #f8fafc 48%, #eef2ff 100%);
 }
 
 .login-box {
-    width: 100%;
-    max-width: 430px;
-    padding: 40px;
-
-    background: white;
-    border-radius: 18px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-
-    animation: cardAppear 0.4s ease;
+  width: 100%;
+  max-width: 440px;
+  padding: 38px;
+  background: var(--white);
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: cardAppear .4s ease;
 }
 
 @keyframes cardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .login-box h2 {
-    margin: 0;
-    text-align: center;
-    font-size: 30px;
-    color: #111827;
+  margin: 0;
+  text-align: center;
+  color: var(--navy);
+  font-size: 30px;
+  font-weight: 750;
 }
 
 .login-subtitle {
-    text-align: center;
-    margin: 9px 0 30px;
-    color: #6b7280;
-    font-size: 14px;
-    line-height: 1.5;
+  margin: 9px 0 30px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .login-box form {
-    margin-top: 10px;
+  margin-top: 8px;
 }
 
-
-/* =====================================================
-   FORM
-===================================================== */
+/* =========================================================
+   FORM SYSTEM
+   ========================================================= */
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 19px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 650;
 }
 
 .form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 13px 14px;
+.form-group textarea,
+.form-group select,
+.complaint-box input,
+.complaint-box textarea,
+.complaint-box select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  outline: none;
+  background: #fff;
+  color: var(--text);
+  font-size: 15px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
 
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
-    outline: none;
-
-    background: #ffffff;
-    color: #111827;
-    font-size: 15px;
-
-    transition: all 0.2s ease;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.complaint-box input:focus,
+.complaint-box textarea:focus,
+.complaint-box select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.11);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: #9ca3af;
+  color: #94a3b8;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+.form-group textarea,
+.complaint-box textarea {
+  min-height: 145px;
+  resize: vertical;
+  font-family: inherit;
 }
 
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 
-/* =====================================================
-   LOGIN BUTTONS
-===================================================== */
+.login-button,
+.complaint-box button,
+.dashboard-buttons button,
+.status-buttons button {
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary), #3b82f6);
+  color: #fff;
+  font-weight: 650;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
 
 .login-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 5px;
-
-    border: none;
-    border-radius: 9px;
-
-    background: #2563eb;
-    color: white;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+  width: 100%;
+  padding: 13px;
+  margin-top: 5px;
+  font-size: 15px;
 }
 
-.login-button:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+.login-button:hover,
+.complaint-box button:hover,
+.dashboard-buttons button:hover,
+.status-buttons button:hover {
+  transform: translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow: 0 8px 20px rgba(37,99,235,.25);
 }
 
 .register-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 12px;
-
-    border: 1px solid #2563eb;
-    border-radius: 9px;
-
-    background: white;
-    color: #2563eb;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 650;
+  transition: var(--transition);
 }
 
 .register-button:hover {
-    background: #eff6ff;
-    transform: translateY(-1px);
+  background: var(--primary-light);
+  transform: translateY(-1px);
 }
 
-
-/* =====================================================
+/* =========================================================
    ADMIN DASHBOARD
-===================================================== */
+   ========================================================= */
 
 .dashboard {
-    min-height: 100vh;
-    padding: 60px 30px;
-    text-align: center;
-
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(37, 99, 235, 0.25),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #f8fafc,
-            #eef2ff
-        );
+  min-height: 100vh;
+  padding: 55px 25px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,.10), transparent 28%),
+    linear-gradient(135deg, #f8fafc, #eef4ff);
 }
 
 .dashboard h1 {
-    margin: 0;
-    font-size: 38px;
-    color: #111827;
+  margin: 0;
+  color: var(--navy);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -.8px;
 }
 
 .dashboard h2 {
-    margin: 12px 0 35px;
-    font-size: 20px;
-    font-weight: normal;
-    color: #64748b;
+  margin: 10px 0 35px;
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 450;
 }
 
-
-/* Dashboard Cards */
-
 .dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-
-    max-width: 1100px;
-    margin: 0 auto 35px;
+  width: 100%;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 0 auto 35px;
 }
 
 .dashboard-card {
-    padding: 25px;
+  position: relative;
+  overflow: hidden;
+  padding: 27px 22px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
 
-    background: white;
-    border-radius: 14px;
+.dashboard-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: var(--primary);
+}
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 .dashboard-card h3 {
-    margin: 0 0 12px;
-    font-size: 18px;
-    color: #1f2937;
+  margin: 0 0 10px;
+  color: var(--slate);
+  font-size: 16px;
+  font-weight: 650;
 }
 
 .dashboard-card p {
-    margin: 0;
-    font-size: 32px;
-    font-weight: bold;
+  margin: 0;
+  color: var(--primary);
+  font-size: 34px;
+  font-weight: 800;
 }
 
-
-/* Different Card Colors */
-
-.dashboard-card:nth-child(1) {
-    border-top: 5px solid #2563eb;
-}
-
-.dashboard-card:nth-child(1) p {
-    color: #2563eb;
-}
-
-.dashboard-card:nth-child(2) {
-    border-top: 5px solid #f59e0b;
-}
-
-.dashboard-card:nth-child(2) p {
-    color: #f59e0b;
-}
-
-.dashboard-card:nth-child(3) {
-    border-top: 5px solid #3b82f6;
-}
-
-.dashboard-card:nth-child(3) p {
-    color: #3b82f6;
-}
-
-.dashboard-card:nth-child(4) {
-    border-top: 5px solid #22c55e;
-}
-
-.dashboard-card:nth-child(4) p {
-    color: #22c55e;
-}
-
-
-/* Dashboard Buttons */
+.dashboard-card:nth-child(2)::after { background: #f59e0b; }
+.dashboard-card:nth-child(2) p { color: #d97706; }
+.dashboard-card:nth-child(3)::after { background: #0ea5e9; }
+.dashboard-card:nth-child(3) p { color: #0284c7; }
+.dashboard-card:nth-child(4)::after { background: #22c55e; }
+.dashboard-card:nth-child(4) p { color: #16a34a; }
 
 .dashboard-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 13px;
+  flex-wrap: wrap;
 }
 
 .dashboard-buttons button {
-    min-width: 180px;
-    padding: 14px 24px;
-
-    border: none;
-    border-radius: 10px;
-
-    background: #2563eb;
-    color: white;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+  min-width: 175px;
+  padding: 13px 22px;
 }
 
-.dashboard-buttons button:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-}
-
-
-/* =====================================================
+/* =========================================================
    STUDENT DASHBOARD
-===================================================== */
+   ========================================================= */
 
 .student-dashboard {
-    min-height: 100vh;
-    padding: 40px;
-
-    background: linear-gradient(
-        135deg,
-        #eff6ff,
-        #f8fafc
-    );
+  min-height: 100vh;
+  padding: 40px 25px 60px;
+  background:
+    radial-gradient(circle at 85% 0, rgba(37,99,235,.10), transparent 28%),
+    linear-gradient(135deg, #f8fafc, #eef5ff);
 }
 
 .student-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    max-width: 1100px;
-    margin: 0 auto 40px;
+  max-width: 1080px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin: 0 auto 38px;
 }
 
 .student-header h1 {
-    margin: 0;
-    font-size: 32px;
-    color: #0f172a;
+  margin: 0;
+  color: var(--navy);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -.6px;
 }
 
 .student-header p {
-    margin-top: 8px;
-    color: #64748b;
-    font-size: 17px;
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 16px;
 }
 
-
-/* Logout */
-
 .logout-button {
-    padding: 11px 22px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #ef4444;
-    color: white;
-
-    font-weight: 600;
-
-    transition: 0.2s;
+  padding: 11px 21px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 650;
+  transition: var(--transition);
 }
 
 .logout-button:hover {
-    background: #dc2626;
+  background: #fecaca;
+  transform: translateY(-1px);
 }
 
-
-/* Student Cards */
-
 .student-dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-
-    max-width: 1000px;
-    margin: auto;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin: auto;
 }
 
 .student-card {
-    padding: 30px;
-
-    background: white;
-    border-radius: 16px;
-
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
-
-    transition: transform 0.2s;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .student-card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 .student-card h2 {
-    margin: 0 0 15px;
-    font-size: 45px;
+  margin: 0 0 12px;
+  font-size: 43px;
 }
 
 .student-card h3 {
-    margin-bottom: 12px;
-    font-size: 22px;
-    color: #1e293b;
+  margin: 0 0 10px;
+  color: var(--navy);
+  font-size: 21px;
 }
 
 .student-card p {
-    margin-bottom: 25px;
-    color: #64748b;
-    line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto 22px;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .student-card button {
-    padding: 12px 22px;
-
-    border: none;
-    border-radius: 8px;
-
-    color: white;
-
-    font-weight: 600;
-}
-
-
-/* Student Card Colors */
-
-.complaint-card-blue {
-    border-top: 5px solid #2563eb;
-}
-
-.complaint-card-blue button {
-    background: #2563eb;
-}
-
-.complaint-card-green {
-    border-top: 5px solid #16a34a;
-}
-
-.complaint-card-green button {
-    background: #16a34a;
+  padding: 11px 21px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-weight: 650;
+  transition: var(--transition);
 }
 
 .student-card button:hover {
-    opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
+.complaint-card-blue {
+  border-top: 4px solid var(--primary);
+}
 
-/* =====================================================
+.complaint-card-blue button {
+  background: var(--primary);
+}
+
+.complaint-card-green {
+  border-top: 4px solid var(--success);
+}
+
+.complaint-card-green button {
+  background: var(--success);
+}
+
+/* =========================================================
    SUBMIT COMPLAINT
-===================================================== */
+   ========================================================= */
 
 .complaint-page {
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 50px 20px;
-
-    background: linear-gradient(
-        135deg,
-        #f8fafc,
-        #eef2ff
-    );
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 55px 20px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(37,99,235,.10), transparent 30%),
+    linear-gradient(135deg, #f8fafc, #eef4ff);
 }
 
 .complaint-box {
-    width: 100%;
-    max-width: 650px;
-
-    padding: 40px;
-
-    background: white;
-    border-radius: 16px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+  width: 100%;
+  max-width: 680px;
+  padding: 38px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .complaint-box h1 {
-    margin: 0 0 30px;
-
-    text-align: center;
-
-    color: #111827;
-    font-size: 28px;
+  margin: 0 0 30px;
+  color: var(--navy);
+  text-align: center;
+  font-size: 28px;
+  font-weight: 750;
 }
 
 .complaint-box .form-group {
-    margin-bottom: 22px;
-}
-
-.form-group textarea {
-    min-height: 140px;
-    resize: vertical;
-    font-family: inherit;
+  margin-bottom: 21px;
 }
 
 .complaint-box button {
-    width: 100%;
-    padding: 14px;
-
-    border: none;
-    border-radius: 9px;
-
-    background: #2563eb;
-    color: white;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
 }
 
-.complaint-box button:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.2);
-}
-
-
-/* =====================================================
-   MY COMPLAINTS
-===================================================== */
+/* =========================================================
+   MY COMPLAINTS / ADMIN COMPLAINTS
+   ========================================================= */
 
 .my-complaints-page,
 .admin-complaints-page {
-    min-height: 100vh;
-
-    width: 90%;
-    max-width: 950px;
-
-    margin: 0 auto;
-    padding: 55px 0;
+  width: min(94%, 1050px);
+  min-height: 100vh;
+  margin: auto;
+  padding: 50px 0 70px;
 }
 
 .my-complaints-page h1,
 .admin-complaints-page h1 {
-    margin: 0 0 35px;
-
-    text-align: center;
-
-    color: #111827;
-    font-size: 32px;
+  margin: 0 0 30px;
+  color: var(--navy);
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
 }
 
 .complaints-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .complaint-card {
-    padding: 25px;
-
-    background: white;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-
-    transition: all 0.2s ease;
+  padding: 25px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .complaint-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.1);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .complaint-card h2 {
-    margin: 0 0 18px;
-
-    color: #111827;
-    font-size: 21px;
+  margin: 0 0 15px;
+  color: var(--navy);
+  font-size: 20px;
 }
 
 .complaint-card p {
-    margin: 10px 0;
-
-    line-height: 1.6;
-    color: #4b5563;
+  margin: 9px 0;
+  color: #526174;
+  line-height: 1.65;
 }
 
 .complaint-card strong {
-    color: #1f2937;
+  color: #1e293b;
 }
 
-
-/* =====================================================
-   NO COMPLAINTS
-===================================================== */
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
 
 .no-complaints {
-    text-align: center;
-
-    padding: 40px;
-
-    background: white;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-
-    color: #64748b;
-
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  padding: 50px 25px;
+  background: #fff;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
 }
 
-
-/* =====================================================
-   ADMIN STATUS BUTTONS
-===================================================== */
+/* =========================================================
+   STATUS BUTTONS
+   ========================================================= */
 
 .status-buttons {
-    display: flex;
-    gap: 10px;
-
-    margin-top: 20px;
-
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 19px;
 }
 
 .status-buttons button {
-    padding: 10px 17px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #2563eb;
-    color: white;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+  padding: 9px 15px;
+  font-size: 13px;
 }
 
-.status-buttons button:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-}
-
-
-/* =====================================================
+/* =========================================================
    STATUS BADGES
-===================================================== */
+   ========================================================= */
 
 .status-pending,
 .status-progress,
 .status-resolved {
-    display: inline-block;
-
-    padding: 5px 11px;
-
-    border-radius: 20px;
-
-    font-size: 13px;
-    font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .status-pending {
-    background: #fef3c7;
-    color: #92400e;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .status-progress {
-    background: #dbeafe;
-    color: #1e40af;
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .status-resolved {
-    background: #dcfce7;
-    color: #166534;
+  background: #dcfce7;
+  color: #166534;
 }
 
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 800px) {
-
-    .dashboard-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .student-dashboard-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-@media (max-width: 600px) {
-
-    .login-box {
-        padding: 28px 22px;
-        border-radius: 14px;
-    }
-
-    .login-box h2 {
-        font-size: 26px;
-    }
-
-    .dashboard {
-        padding: 50px 20px;
-    }
-
-    .dashboard h1 {
-        font-size: 29px;
-    }
-
-    .dashboard h2 {
-        font-size: 18px;
-        margin-bottom: 35px;
-    }
-
-    .dashboard-buttons {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .dashboard-buttons button {
-        width: 100%;
-    }
-
-    .student-dashboard {
-        padding: 25px;
-    }
-
-    .student-header {
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .student-header h1 {
-        font-size: 27px;
-    }
-
-    .complaint-box {
-        padding: 28px 22px;
-    }
-
-    .complaint-box h1 {
-        font-size: 25px;
-    }
-
-    .my-complaints-page,
-    .admin-complaints-page {
-        width: 92%;
-        padding: 35px 0;
-    }
-
-    .my-complaints-page h1,
-    .admin-complaints-page h1 {
-        font-size: 27px;
-    }
-
-    .complaint-card {
-        padding: 20px;
-    }
-
-    .status-buttons {
-        flex-direction: column;
-    }
-
-    .status-buttons button {
-        width: 100%;
-    }
-}
-
-
-@media (max-width: 500px) {
-
-    .dashboard-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-@media (max-width: 400px) {
-
-    .login-page {
-        padding: 15px;
-    }
-
-    .login-box {
-        padding: 25px 18px;
-    }
-
-    .complaint-box {
-        padding: 22px 18px;
-    }
-
-    .student-header {
-        flex-direction: column;
-    }
-
-    .logout-button {
-        width: 100%;
-    }
-}
-
-/* =====================================================
+/* =========================================================
    PRIORITY BADGES
-===================================================== */
+   ========================================================= */
 
 .priority-low,
 .priority-medium,
 .priority-high,
 .priority-critical {
-    display: inline-block;
-    padding: 5px 11px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .priority-low {
-    background: #dcfce7;
-    color: #166534;
+  background: #dcfce7;
+  color: #166534;
 }
 
 .priority-medium {
-    background: #fef3c7;
-    color: #92400e;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .priority-high {
-    background: #ffedd5;
-    color: #c2410c;
+  background: #ffedd5;
+  color: #c2410c;
 }
 
 .priority-critical {
-    background: #fee2e2;
-    color: #991b1b;
+  background: #fee2e2;
+  color: #991b1b;
 }
+
+/* =========================================================
+   WELCOME PAGE
+   ========================================================= */
+
+.welcome-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(3,15,35,.84), rgba(7,24,52,.63)),
+    url("/college.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff;
+}
+
+.welcome-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 80% 30%, rgba(37,99,235,.22), transparent 30%);
+}
+
+/* =========================================================
+   WELCOME NAVBAR
+   ========================================================= */
+
+.welcome-page .navbar {
+  position: relative;
+  z-index: 2;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: rgba(2, 12, 28, .38);
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  backdrop-filter: blur(12px);
+}
+
+.welcome-page .logo {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.2px;
+}
+
+.welcome-page .nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-page .nav-buttons button {
+  padding: 10px 17px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 650;
+  transition: var(--transition);
+}
+
+.welcome-page .login-btn {
+  border: 1px solid rgba(255,255,255,.65);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+
+.welcome-page .login-btn:hover {
+  background: #fff;
+  color: var(--navy);
+}
+
+.welcome-page .admin-btn {
+  border: 1px solid transparent;
+  background: var(--primary);
+  color: #fff;
+}
+
+.welcome-page .admin-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   WELCOME HERO
+   ========================================================= */
+
+.welcome-page .hero {
+  position: relative;
+  z-index: 1;
+  min-height: 590px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 65px;
+  padding: 75px 7%;
+}
+
+.welcome-page .hero-content {
+  max-width: 640px;
+}
+
+.welcome-page .badge {
+  display: inline-flex;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(147,197,253,.35);
+  border-radius: 999px;
+  background: rgba(37,99,235,.22);
+  color: #bfdbfe;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(5px);
+}
+
+.welcome-page .hero h1 {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: clamp(42px, 5vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -2.5px;
+  font-weight: 850;
+}
+
+.welcome-page .hero h1 span {
+  color: #60a5fa;
+}
+
+.welcome-page .hero-content p {
+  max-width: 570px;
+  margin: 0;
+  color: #dbeafe;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.welcome-page .hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 29px;
+}
+
+.welcome-page .primary-btn,
+.welcome-page .secondary-btn {
+  padding: 13px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.welcome-page .primary-btn {
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+}
+
+.welcome-page .primary-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,.35);
+}
+
+.welcome-page .secondary-btn {
+  border: 1px solid rgba(255,255,255,.45);
+  background: rgba(255,255,255,.09);
+  color: #fff;
+}
+
+.welcome-page .secondary-btn:hover {
+  background: #fff;
+  color: var(--navy);
+}
+
+/* =========================================================
+   WELCOME AI CARD
+   ========================================================= */
+
+.welcome-page .hero-card {
+  width: 390px;
+  flex-shrink: 0;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.96);
+  color: var(--text);
+  box-shadow: 0 28px 65px rgba(0,0,0,.34);
+  backdrop-filter: blur(15px);
+}
+
+.welcome-page .card-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.welcome-page .card-header > span {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #eaf2ff;
+  font-size: 21px;
+}
+
+.welcome-page .card-header h3 {
+  margin: 0 0 3px;
+  font-size: 16px;
+}
+
+.welcome-page .card-header p {
+  margin: 0;
+  color: #8a94a6;
+  font-size: 11px;
+}
+
+.welcome-page .analysis-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.welcome-page .analysis-item > span:first-child {
+  font-size: 19px;
+}
+
+.welcome-page .analysis-item div {
+  flex: 1;
+}
+
+.welcome-page .analysis-item strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #1e293b;
+  font-size: 13px;
+}
+
+.welcome-page .analysis-item small {
+  color: #8a94a6;
+  font-size: 11px;
+}
+
+.welcome-page .success {
+  color: #16a34a;
+  font-size: 19px;
+}
+
+.welcome-page .warning {
+  color: #f59e0b;
+  font-size: 19px;
+}
+
+.welcome-page .pending {
+  color: #64748b;
+  font-size: 23px;
+}
+
+.welcome-page .progress-section {
+  padding-top: 18px;
+}
+
+.welcome-page .progress-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.welcome-page .progress-bar {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9edf3;
+}
+
+.welcome-page .progress {
+  width: 85%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), #60a5fa);
+}
+
+/* =========================================================
+   WELCOME FEATURES
+   ========================================================= */
+
+.welcome-page .features {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding: 42px 7%;
+  border-top: 1px solid #e5e7eb;
+  background: rgba(255,255,255,.97);
+  color: var(--text);
+}
+
+.welcome-page .feature {
+  padding: 18px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.welcome-page .feature:hover {
+  background: #f8fafc;
+  transform: translateY(-3px);
+}
+
+.welcome-page .feature-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 13px;
+  border-radius: 12px;
+  background: var(--primary-light);
+  font-size: 23px;
+}
+
+.welcome-page .feature h3 {
+  margin: 0 0 7px;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.welcome-page .feature p {
+  margin: 0;
+  color: #7b8494;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.welcome-page footer {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #64748b;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #94a3b8;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .welcome-page .hero {
+    gap: 40px;
+  }
+
+  .welcome-page .hero-card {
+    width: 350px;
+  }
+
+  .welcome-page .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .student-dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-page .hero {
+    flex-direction: column;
+    min-height: auto;
+    padding: 65px 5%;
+    text-align: center;
+  }
+
+  .welcome-page .hero-content p {
+    margin: auto;
+  }
+
+  .welcome-page .hero-buttons {
+    justify-content: center;
+  }
+
+  .welcome-page .hero-card {
+    width: min(100%, 390px);
+  }
+}
+
+@media (max-width: 600px) {
+  .login-page {
+    padding: 20px 14px;
+  }
+
+  .login-box {
+    padding: 29px 21px;
+    border-radius: 15px;
+  }
+
+  .login-box h2 {
+    font-size: 26px;
+  }
+
+  .dashboard {
+    padding: 45px 16px;
+  }
+
+  .dashboard h1 {
+    font-size: 29px;
+  }
+
+  .dashboard h2 {
+    font-size: 16px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-buttons button {
+    width: 100%;
+  }
+
+  .student-dashboard {
+    padding: 28px 16px 50px;
+  }
+
+  .student-header {
+    align-items: flex-start;
+    gap: 17px;
+  }
+
+  .student-header h1 {
+    font-size: 27px;
+  }
+
+  .student-header p {
+    font-size: 14px;
+  }
+
+  .complaint-box {
+    padding: 28px 21px;
+  }
+
+  .complaint-box h1 {
+    font-size: 25px;
+  }
+
+  .my-complaints-page,
+  .admin-complaints-page {
+    width: 92%;
+    padding: 38px 0 55px;
+  }
+
+  .my-complaints-page h1,
+  .admin-complaints-page h1 {
+    font-size: 27px;
+  }
+
+  .complaint-card {
+    padding: 20px;
+  }
+
+  .status-buttons {
+    flex-direction: column;
+  }
+
+  .status-buttons button {
+    width: 100%;
+  }
+
+  .welcome-page {
+    background-attachment: scroll;
+  }
+
+  .welcome-page .navbar {
+    padding: 0 4%;
+  }
+
+  .welcome-page .logo {
+    font-size: 16px;
+  }
+
+  .welcome-page .nav-buttons {
+    gap: 6px;
+  }
+
+  .welcome-page .nav-buttons button {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .welcome-page .hero h1 {
+    font-size: 42px;
+    letter-spacing: -1.5px;
+  }
+
+  .welcome-page .hero-content p {
+    font-size: 15px;
+  }
+
+  .welcome-page .features {
+    grid-template-columns: 1fr;
+    padding: 30px 5%;
+  }
+}
+
+@media (max-width: 430px) {
+  .student-header {
+    flex-direction: column;
+  }
+
+  .logout-button {
+    width: 100%;
+  }
+
+  .welcome-page .hero {
+    padding-top: 50px;
+  }
+
+  .welcome-page .hero h1 {
+    font-size: 36px;
+  }
+
+  .welcome-page .hero-buttons {
+    flex-direction: column;
+  }
+
+  .welcome-page .primary-btn,
+  .welcome-page .secondary-btn {
+    width: 100%;
+  }
+
+  .welcome-page .hero-card {
+    padding: 19px;
+  }
+}
+
+/* .welcome-page {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(5, 20, 45, 0.70),
+            rgba(5, 20, 45, 0.78)
+        ),
+        url("/college.jpeg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    color: white;
+} */
